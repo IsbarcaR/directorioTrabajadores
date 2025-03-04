@@ -4,7 +4,7 @@ use App\Http\Controllers\TrabajadorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('trabajador.index');
 });
 Route::get('trabajador/filtro',[TrabajadorController::class, 'filtro'])->name('trabajador.filtro');
 Route::get('trabajadores',[TrabajadorController::class, 'index'])->name('trabajador.index');
