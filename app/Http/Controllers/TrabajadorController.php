@@ -13,11 +13,12 @@ class TrabajadorController extends Controller
     public function index()
 {
     $trabajadores = Trabajador::all();
-    $hoy = \Carbon\Carbon::today(); 
+    $hoy = \Carbon\Carbon::today(); // Usamos Carbon para manejar fechas
 
     foreach ($trabajadores as $trabajador) {
-        $fechaNacimiento = \Carbon\Carbon::parse($trabajador->fecha_nacimiento); 
-        
+        $fechaNacimiento = \Carbon\Carbon::parse($trabajador->fecha_nacimiento); // Suponiendo que tienes el campo 'fecha_nacimiento'
+
+        // Verificar si el trabajador cumple años hoy (compara solo mes y día)
         if ($fechaNacimiento->month == $hoy->month && $fechaNacimiento->day == $hoy->day) {
             $trabajador->cumpleAniosHoy = true;
         } else {
@@ -25,7 +26,7 @@ class TrabajadorController extends Controller
         }
     }
 
-    
+    // Ahora fuera del foreach, retorna la vista con todos los trabajadores
     return view('trabajador.index', compact('trabajadores'));
 }
 
