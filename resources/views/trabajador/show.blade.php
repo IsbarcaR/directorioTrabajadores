@@ -34,8 +34,14 @@
                         {{ $trabajador->telefono }}
                     </li>
                     <li class="flex items-center">
-                        Cargos:
-                        {{ $trabajador->cargos }}
+                        
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            @foreach ($cargos as $cargo)
+                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">{{ $cargo }}</span>
+                            @endforeach
+                            
+                          
+                        </div>
                     </li>
                 </ul>
             </div>

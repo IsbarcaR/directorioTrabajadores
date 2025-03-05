@@ -71,8 +71,9 @@ class TrabajadorController extends Controller
     public function show($id)
     {
         $trabajador = Trabajador::find($id);
+        $cargos=json_decode($trabajador->cargos);
         
-        return view('trabajador.show', compact('trabajador',));
+        return view('trabajador.show', compact('trabajador','cargos'));
     }
 
     /**
