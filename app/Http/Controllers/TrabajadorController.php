@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Trabajador;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TrabajadorController extends Controller
 {
@@ -24,7 +25,7 @@ class TrabajadorController extends Controller
             $trabajador->cumpleAniosHoy = false;
         }
     }
-
+    
     
     return view('trabajador.index', compact('trabajadores'));
 }
@@ -48,13 +49,15 @@ class TrabajadorController extends Controller
             'apellidos' => 'required|string|max:255',
             'telefono' => 'required|string',
             'email' => 'required|email|max:255',
-            'foto' => 'nullable|string',
+            
             'departamento' => 'required',
             'fecha_nacimiento' => 'required|date',
 
             'cargos' => 'required|array',
             'cargos.*' => 'string|in:director,operario,lead',
         ]);
+        $path= $request->file('foto')->store('archivos','public');
+        $validate['foto']=$path;
         $validate['mayor55'] = $request->has('mayor55');
         $validate['sustituto'] = $request->has('sustituto');
         $validate['cargos'] = json_encode($validate['cargos']);
@@ -68,7 +71,8 @@ class TrabajadorController extends Controller
     public function show($id)
     {
         $trabajador = Trabajador::find($id);
-        return view('trabajador.show', compact('trabajador'));
+        
+        return view('trabajador.show', compact('trabajador',));
     }
 
     /**
@@ -123,7 +127,6 @@ class TrabajadorController extends Controller
         switch ($filtro) {
             case 'Nombre':
                 $trabajadores = Trabajador::orderBy('nombre', 'asc')->get();
-
                 break;
             case 'Apellidos':
                 $trabajadores = Trabajador::orderBy('apellidos', 'asc')->get();

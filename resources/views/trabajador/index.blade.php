@@ -47,6 +47,8 @@
             </thead>
             <tbody>
                 @foreach ($trabajadores as $trabajador)
+                    
+                
                     <tr class="border border-gray-300 hover:bg-gray-100">
                         <td class="border border-gray-300 px-4 py-2 text-sm font-medium"><a href="{{ route('trabajador.show',$trabajador->id) }}" class="text-blue-500 hover:underline">{{ $trabajador->nombre }}
                             @if($trabajador->cumpleAniosHoy)
@@ -59,7 +61,7 @@
                         <td class="border border-gray-300 px-4 py-2">{{ $trabajador->telefono }}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ $trabajador->email }}</td>
                         <td class="border border-gray-300 px-4 py-2">
-                            <img src="{{ $trabajador->foto }}" alt="Foto" class="w-10 h-10 rounded-full">
+                            <img src="{{ Storage::url($trabajador->foto)}}" alt="Foto" class="w-10 h-10 rounded-full">
                         </td>
                         <td class="border border-gray-300 px-4 py-2">{{ $trabajador->departamento }}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ $trabajador->fecha_nacimiento }}</td>
@@ -96,6 +98,7 @@
                             </form>
                         </td>
                     </tr>
+                    
                 @endforeach
             </tbody>
         </table>
