@@ -162,7 +162,7 @@ class TrabajadorController extends Controller
             $trabajadores=$query->get();
                 break;
             case '':
-                $trabajadores = Trabajador::all();
+                return redirect()->route('trabajador.index');
                 break;
         }
 
