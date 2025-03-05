@@ -95,13 +95,19 @@ class TrabajadorController extends Controller
             'apellidos' => 'required|string|max:255',
             'telefono' => 'required|string',
             'email' => 'required|email|max:255',
-            'foto' => 'nullable|string',
+            
             'departamento' => 'required',
             'fecha_nacimiento' => 'required|date',
-
+            'foto'=>'nullable',
             'cargos' => 'required|array',
             'cargos.*' => 'string|in:director,operario,lead',
         ]);
+        if($request->file('foto')){
+            $path= $request->file('foto')->store('archivos','public');
+            $validate['foto']=$path;
+        }
+        
+       
         $validate['mayor55'] = $request->has('mayor55');
         $validate['sustituto'] = $request->has('sustituto');
         $validate['cargos'] = json_encode($validate['cargos']);

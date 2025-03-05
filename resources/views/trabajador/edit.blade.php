@@ -1,7 +1,7 @@
 @extends('layout.app')
 @section('content')
     <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
-        <form action="{{ route('trabajador.update',$trabajador->id) }}" method="POST" class="space-y-4">
+        <form action="{{ route('trabajador.update',$trabajador->id) }}" method="POST" class="space-y-4" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <fieldset class="space-y-4">
@@ -35,7 +35,7 @@
                 </div>
                 <div>
                     <label for="foto" class="block font-medium">Foto:</label>
-                    <input type="text" name='foto' value="{{ $trabajador->foto }}" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                    <input type='file' name='foto'  value='{{ Storage::url($trabajador->foto)}}' class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
                     @error('foto')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
